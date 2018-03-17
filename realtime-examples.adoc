@@ -1,0 +1,23 @@
+A good real-world example of stream processing is the kitchen
+of a typical restaurant, which consists of waiters, dishwashers, prep cooks, line cooks, sous chefs, and a
+main chef who collectively implement culinary applications. Waiters take orders and bring them to the
+main chef, who instructs the prep cooks on the initial preparation. This may entail chopping ingredients,
+making dough, preparing icing, and so on. Their product is passed on to a line cook who is dedicated to a
+particular kitchen station: the fryer, the grill, and so on. Once the line cook is done, the dish goes to either
+the sous chef or the main chef for the finishing touches, which may be as simple as garnishing it with herbs.
+The waiter then takes the fully prepared dish to the customer. After the customer has finished their meal,
+
+the physical plate/bowl ends up in front of the dishwasher, who does the final cleaning. Note that at any
+instance in time, a number of dishes may be in various stages of the cooking pipeline, because customers
+arrive and order at different times. In addition, to ensure this parallelism, a kitchen employs many prep
+cooks, line cooks, and so on.
+In stream-processing speak, the waiter who brings in the order is the data source. The order itself is the
+record to be processed. The various cooks and chefs constitute processing operators, whereas the customer
+is the application driver. There are multiple orders, which follow parallel processing streams. Such pipelines
+have to deal with two major issues: random faults and stragglers. In very large kitchens with scores of cooks
+and orders, the probability of an accident is very high. Furthermore, one or two cooks may be slower than
+everyone else, leading to the buildup of back pressure. Conventional systems deal with faults by either
+maintaining a redundant replica of each processing stream or buffering records upstream and replaying
+failed ones. Both approaches double the amount of data storage across the system. In addition, neither
+method has an efficient mechanism to deal with stragglers. Imagine restaurants having to cook two dishes
+instead of one for each order.
